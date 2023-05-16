@@ -19,4 +19,11 @@ import TopHeader from '@/components/TopHeader'
 .el-aside {
   height: 100vh;
 }
+.el-header{
+  background-color: #2d3a4b;
+  color: white;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+}
 </style>
