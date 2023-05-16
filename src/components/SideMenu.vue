@@ -60,7 +60,7 @@ import {
 }
 .el-menu-item {
   height: 62px;
-  line-height: 66px;
+  line-height: 62px;
   font-size: 18px;
   * {
     height: 62px;
@@ -72,7 +72,7 @@ import {
 .el-sub-menu__title {
   span {
     height: 62px;
-    line-height: 66px;
+    line-height: 62px;
   }
 }
 .el-sub-menu__title * {
