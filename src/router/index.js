@@ -11,11 +11,16 @@ const routes = [
     component: Login,
   },
   {
-    path: '/',
+    path: '/main',
     name: 'main',
     component: Main,
     //根据权限动态添加嵌套路由
     children: [],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notfound',
+    component: () => import('@/views/NotFound'),
   },
 ]
 
