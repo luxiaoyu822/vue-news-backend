@@ -43,11 +43,15 @@
 <script setup>
 import { loadFull } from 'tsparticles'
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 const particlesInit = async engine => {
   await loadFull(engine)
 }
 const router = useRouter()
+const store = useStore()
 const loginForm = reactive({
   username: '',
   password: '',
@@ -62,9 +66,14 @@ const loginRules = reactive({
 const sumbitForm = () => {
   loginFormRef.value.validate(valid => {
     if (valid) {
-      console.log(loginForm)
-      localStorage.setItem('token', 'test')
-      router.push('/index')
+      axios.post('/backend/user/login', loginForm).then(({ data }) => {
+        if (data.code === 1) {
+          store.commit('changeUserInfo', data.data)
+          router.push('/index')
+        } else {
+          ElMessage.error(data.info)
+        }
+      })
     }
   })
 }
