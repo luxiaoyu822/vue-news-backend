@@ -21,21 +21,21 @@
   </div>
 </template>
 <script setup>
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { Menu, User } from "@element-plus/icons-vue";
-const store = useStore();
-const router = useRouter();
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { Menu, User } from '@element-plus/icons-vue'
+const store = useStore()
+const router = useRouter()
 const handleCollapse = () => {
-  store.commit("changeCollapse");
-};
+  store.commit('changeCollapse')
+}
 const handleCenter = () => {
   router.push('/center')
-};
+}
 const handleLogout = () => {
   localStorage.removeItem('token')
   router.push('/login')
-};
+}
 </script>
 <style lang="scss">
 .header-container {
