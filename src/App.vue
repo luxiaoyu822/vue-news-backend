@@ -6,7 +6,6 @@ import { onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 const handleResize = () => {
-  console.log(window.innerWidth)
   if (!store.state.isCollapse) {
     if (window.innerWidth <= 1200) {
       store.commit('windowChangeCollapse', true)

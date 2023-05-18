@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Login from '@/views/Login'
 import Main from '@/views/Main'
+import NotFound from '@/components/NotFound'
 import RoutesConfig from './config'
 import store from '@/store'
 
@@ -18,9 +19,13 @@ const routes = [
     children: [],
   },
   {
+    path: '/404',
+    component: NotFound,
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'notfound',
-    component: () => import('@/views/NotFound'),
+    component: NotFound,
   },
 ]
 

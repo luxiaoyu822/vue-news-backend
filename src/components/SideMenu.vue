@@ -61,12 +61,12 @@ import {
 .el-menu-item {
   height: 62px;
   line-height: 62px;
-  font-size: 18px;
+  font-size: 17px;
   * {
     height: 62px;
   }
 }
-::v-deep .el-sub-menu__title {
+:deep .el-sub-menu__title {
   height: 62px;
 }
 .el-sub-menu__title {
@@ -76,6 +76,6 @@ import {
   }
 }
 .el-sub-menu__title * {
-  font-size: 18px;
+  font-size: 17px;
 }
 </style>

@@ -15,26 +15,34 @@
         label-width="120px"
         class="login-form"
       >
-        <el-form-item label="用户名" prop="username">
+        <el-form-item label="用户名：" prop="username">
           <el-input
             v-model="loginForm.username"
             type="text"
             size="large"
             autocomplete="off"
-          />
+          >
+            <template #prefix>
+              <el-icon size="22" class="el-input__icon"><User /></el-icon>
+            </template>
+          </el-input>
         </el-form-item>
-        <el-form-item label="密&emsp;码" prop="password">
+        <el-form-item label="密&emsp;码：" prop="password">
           <el-input
             v-model="loginForm.password"
             type="password"
             size="large"
             autocomplete="off"
-          />
+          >
+            <template #prefix>
+              <el-icon size="22" class="el-input__icon"><Lock /></el-icon>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="large" @click="sumbitForm()"
-            >登录</el-button
-          >
+          <el-button type="primary" size="large" @click="sumbitForm()">
+            登录
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -47,6 +55,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import { User, Lock } from '@element-plus/icons-vue'
 const particlesInit = async engine => {
   await loadFull(engine)
 }
@@ -176,9 +185,12 @@ const options = {
   .login-form {
     margin-top: 50px;
   }
-  ::v-deep .el-form-item__label {
+  :deep .el-form-item__label {
     color: white;
     font-size: 18px;
+  }
+  .el-button {
+    width: 100%;
   }
 }
 </style>
