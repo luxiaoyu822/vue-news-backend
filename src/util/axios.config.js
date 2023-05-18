@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 axios.interceptors.request.use(
   function (config) {
     const token = localStorage.getItem('token')
@@ -16,7 +17,7 @@ axios.interceptors.response.use(
     if (authorization) {
       localStorage.setItem('token', authorization)
     }
-    if (response.data.code === -1) {
+    if (response.data.code === -1&&response.data.info==='用户名或密码错误') {
       localStorage.removeItem('token')
       window.location.href = '#/login'
     }

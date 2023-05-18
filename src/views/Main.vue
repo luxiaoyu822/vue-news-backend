@@ -1,12 +1,12 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside :width="$store.state.isCollapse ? '64px' : '230px'"
-        ><side-menu
-      /></el-aside>
+      <el-aside :width="$store.state.isCollapse ? '64px' : '230px'">
+        <side-menu />
+      </el-aside>
       <el-container>
         <el-header><top-header /></el-header>
-        <el-main><router-view></router-view></el-main>
+        <el-main><router-view /></el-main>
       </el-container>
     </el-container>
   </div>
