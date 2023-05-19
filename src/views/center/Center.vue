@@ -121,7 +121,7 @@ const avatarUploadChange = file => {
 const onSubmit = () => {
   userInfoRef.value.validate(async validate => {
     if (validate) {
-      const res = await upload(userInfoForm, '/backend/user/update')
+      const res = await upload(userInfoForm, 'put', '/backend/user')
       if (res.code === 1) {
         store.commit('changeUserInfo', res.data)
         ElMessage.success('更新成功')

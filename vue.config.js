@@ -6,6 +6,7 @@ module.exports = defineConfig({
       '/backend': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        timeout: 10000,
       },
     },
   },

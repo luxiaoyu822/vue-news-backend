@@ -75,7 +75,7 @@ const loginRules = reactive({
 const sumbitForm = () => {
   loginFormRef.value.validate(valid => {
     if (valid) {
-      axios.post('/backend/user/login', loginForm).then(({ data }) => {
+      axios.post('/backend/login', loginForm).then(({ data }) => {
         if (data.code === 1) {
           store.commit('changeUserInfo', data.data)
           router.push('/index')

@@ -16,6 +16,10 @@ import SideMenu from '@/components/SideMenu'
 import TopHeader from '@/components/TopHeader'
 </script>
 <style lang="scss">
+.el-main {
+  overflow: auto;
+  height: calc(100vh - 60px);
+}
 .el-aside {
   height: 100vh;
 }
