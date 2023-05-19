@@ -77,6 +77,7 @@ import { computed, reactive, ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import upload from '@/util/upload'
+import { useRouter } from 'vue-router'
 const store = useStore()
 const userInfoRef = ref()
 const userInfoForm = reactive({
@@ -88,7 +89,11 @@ const userInfoForm = reactive({
   role: 2,
   file: null,
 })
-
+const uploadAvatar = computed(() =>
+  userInfoForm.avatar.includes('blob')
+    ? userInfoForm.avatar
+    : 'http://localhost:3000' + userInfoForm.avatar
+)
 const userInfoRules = reactive({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -106,15 +111,17 @@ const avatarUploadChange = file => {
 使用 Axios 发送带有选择文件的参数时，需要将文件数据包装成 FormData 对象，再通过 Content-Type 头部指定为 multipart/form-data 类型发送请求。
 这是因为浏览器在上传文件时需要使用 multipart/form-data 格式进行传输，而普通的 JSON 对象并不支持该格式。
 */
+const router = useRouter()
 const onSubmit = () => {
   userInfoRef.value.validate(async validate => {
     if (validate) {
-      const res = await upload(userInfoForm, '/backend/user/update')
+      const res = await upload(userInfoForm, 'post', '/backend/user')
       if (res.code === 1) {
         store.commit('changeUserInfo', res.data)
-        ElMessage.success('更新成功')
+        ElMessage.success('添加成功')
+        router.push('/user-manage/userlist')
       } else {
-        ElMessage.error('更新失败')
+        ElMessage.error('添加失败')
       }
     }
   })
