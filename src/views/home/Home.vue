@@ -55,7 +55,6 @@ const welcomeText = computed(() =>
 onMounted(async () => {
   const { data } = await axios.get('/backend/product-manage/list')
   swiperData.value = data.data
-  console.log(swiperData.value)
 })
 </script>
 <style lang="scss" scoped>

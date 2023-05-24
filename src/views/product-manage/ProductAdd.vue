@@ -88,7 +88,6 @@ const router = useRouter()
 const onSubmit = () => {
   productInfoRef.value.validate(async validate => {
     if (validate) {
-      console.log(productInfoForm)
       const res = await upload(productInfoForm, 'post', '/backend/product-manage/add')
       if (res.code === 1) {
         store.commit('changeproductInfo', res.data)
