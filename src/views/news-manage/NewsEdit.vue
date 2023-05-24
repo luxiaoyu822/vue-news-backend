@@ -13,7 +13,11 @@
         <el-input size="large" v-model="newsInfoForm.title" />
       </el-form-item>
       <el-form-item label="内容：" prop="content">
-        <editor @event="handleChange" :content="newsInfoForm" v-if="newsInfoForm.content"/>
+        <editor
+          @event="handleChange"
+          :content="newsInfoForm.content"
+          v-if="newsInfoForm.content"
+        />
       </el-form-item>
       <el-form-item label="类别：" prop="categroy">
         <el-select
@@ -100,8 +104,8 @@ const avatarUploadChange = file => {
 const onSubmit = () => {
   newsInfoRef.value.validate(async validate => {
     if (validate) {
-      await upload(newsInfoForm, 'post', '/backend/news-manage/add')
-      router.push('/news-manage/newslist')
+      await upload(newsInfoForm, 'post', '/backend/news-manage/edit')
+      router.back()
     }
   })
 }
