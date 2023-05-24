@@ -23,9 +23,16 @@
           <span>公司产品</span>
         </div>
       </template>
-      <el-carousel :interval="4000" type="card" height="300px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <h3 text="2xl" justify="center">{{ item }}</h3>
+      <el-carousel :interval="4000" type="card" height="350px" v-if="swiperData.length">
+        <el-carousel-item v-for="item in swiperData" :key="item._id">
+          <div
+            :style="{
+              backgroundImage: `url('http://localhost:3000${item.cover}')`,
+              height:'100%'
+            }"
+          >
+            <h3 text="2xl" justify="center">{{ item.title }}</h3>
+          </div>
         </el-carousel-item>
       </el-carousel>
     </el-card>
@@ -33,8 +40,10 @@
 </template>
 <script setup>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import axios from 'axios'
 const store = useStore()
+const swiperData = ref([])
 const avatarUrl = computed(() =>
   store.state.userInfo.avatar
     ? 'http://localhost:3000' + store.state.userInfo.avatar
@@ -43,6 +52,11 @@ const avatarUrl = computed(() =>
 const welcomeText = computed(() =>
   new Date().getHours() < 12 ? '要开心每一天' : '你可能累了，喝杯咖啡提提神吧'
 )
+onMounted(async () => {
+  const { data } = await axios.get('/backend/product-manage/list')
+  swiperData.value = data.data
+  console.log(swiperData.value)
+})
 </script>
 <style lang="scss" scoped>
 .box-card {

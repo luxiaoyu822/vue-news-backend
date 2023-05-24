@@ -126,4 +126,7 @@ const handleEdit = item => {
     max-width: 100%;
   }
 }
+.el-table {
+  margin-top: 30px;
+}
 </style>

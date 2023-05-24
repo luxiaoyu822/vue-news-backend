@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-page-header content="添加产品" icon="" title="产品管理">
+    <el-page-header content="编辑产品" @back="handleBack" title="产品管理">
     </el-page-header>
     <el-form
       ref="productInfoRef"
@@ -43,20 +43,21 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button size="large" type="primary" @click="onSubmit"
-          >添加</el-button
-        >
+        <el-button size="large" type="primary" @click="onSubmit">
+          修改
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script setup>
 import { useStore } from 'vuex'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, onMounted } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import upload from '@/util/upload'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import axios from 'axios'
 const store = useStore()
 const productInfoRef = ref()
 const productInfoForm = reactive({
@@ -66,6 +67,16 @@ const productInfoForm = reactive({
   cover: '',
   file: null,
 })
+
+const route = useRoute()
+
+onMounted(async () => {
+  const { data } = await axios.get(
+    `/backend/product-manage/product/${route.params.id}`
+  )
+  Object.assign(productInfoForm, data.data)
+})
+
 const uploadcover = computed(() =>
   productInfoForm.cover.includes('blob')
     ? productInfoForm.cover
@@ -88,17 +99,14 @@ const router = useRouter()
 const onSubmit = () => {
   productInfoRef.value.validate(async validate => {
     if (validate) {
-      console.log(productInfoForm)
-      const res = await upload(productInfoForm, 'post', '/backend/product-manage/add')
-      if (res.code === 1) {
-        store.commit('changeproductInfo', res.data)
-        ElMessage.success('添加成功')
-        router.push('/product-manage/productlist')
-      } else {
-        ElMessage.error('添加失败')
-      }
+      await upload(productInfoForm, 'post', '/backend/product-manage/edit')
+      router.back()
     }
   })
+}
+
+const handleBack = () => {
+  router.back()
 }
 </script>
 <style lang="scss" scoped>

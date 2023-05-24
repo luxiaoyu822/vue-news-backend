@@ -6,15 +6,17 @@ import { onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 const handleResize = () => {
-  if (!store.state.isCollapse) {
-    if (window.innerWidth <= 1200) {
-      store.commit('windowChangeCollapse', true)
+  requestAnimationFrame(() => {
+    if (!store.state.isCollapse) {
+      if (window.innerWidth <= 1200) {
+        store.commit('windowChangeCollapse', true)
+      }
+    } else {
+      if (window.innerWidth > 1200) {
+        store.commit('windowChangeCollapse', false)
+      }
     }
-  } else {
-    if (window.innerWidth > 1200) {
-      store.commit('windowChangeCollapse', false)
-    }
-  }
+  })
 }
 
 onMounted(() => {
