@@ -8,14 +8,13 @@ const emit = defineEmits(['event'])
 const props = defineProps({
   content: String,
 })
+
+
 onMounted(() => {
   const editor = new E('#myeditor')
+  editor.config.height = 600
   editor.create()
-
-  if (props.content) {
-    editor.txt.html(props.content)
-  }
-
+  props.content && editor.txt.html(props.content)
   editor.config.onchange = function (newHtml) {
     emit('event', newHtml)
   }
