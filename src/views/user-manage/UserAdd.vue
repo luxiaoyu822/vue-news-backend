@@ -8,7 +8,6 @@
       :rules="userInfoRules"
       label-width="120px"
       class="demo-ruleForm"
-      :size="formSize"
       status-icon
     >
       <el-form-item label="用&ensp;户&ensp;名&nbsp;：" prop="username">

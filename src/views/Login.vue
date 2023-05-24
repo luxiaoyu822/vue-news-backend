@@ -78,6 +78,7 @@ const sumbitForm = () => {
       axios.post('/backend/login', loginForm).then(({ data }) => {
         if (data.code === 1) {
           store.commit('changeUserInfo', data.data)
+          store.commit('changeGetterRouter', false)
           router.push('/index')
         } else {
           ElMessage.error(data.info)

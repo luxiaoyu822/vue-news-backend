@@ -14,10 +14,12 @@ const routes = [
   {
     path: '/user-manage/adduser',
     component: () => import('@/views/user-manage/UserAdd'),
+    requireAdmin: true,
   },
   {
     path: '/user-manage/userlist',
     component: () => import('@/views/user-manage/UserList'),
+    requireAdmin: true,
   },
   {
     path: '/news-manage/addnews',
@@ -26,6 +28,10 @@ const routes = [
   {
     path: '/news-manage/newslist',
     component: () => import('@/views/news-manage/NewsList'),
+  },
+  {
+    path: '/news-manage/editnews/:id',
+    component: () => import('@/views/news-manage/NewsEdit'),
   },
   {
     path: '/product-manage/addproduct',

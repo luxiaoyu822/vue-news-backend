@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+const router = useRouter()
 axios.interceptors.request.use(
   function (config) {
     const token = localStorage.getItem('token')

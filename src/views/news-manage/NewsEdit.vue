@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-page-header content="添加新闻" icon="" title="新闻管理" />
+    <el-page-header content="编辑新闻" @back="handleBack" title="新闻管理" />
     <el-form
       ref="newsInfoRef"
       :model="newsInfoForm"
@@ -13,7 +13,7 @@
         <el-input size="large" v-model="newsInfoForm.title" />
       </el-form-item>
       <el-form-item label="内容：" prop="content">
-        <editor @event="handleChange" />
+        <editor @event="handleChange" :content="newsInfoForm" v-if="newsInfoForm.content"/>
       </el-form-item>
       <el-form-item label="类别：" prop="categroy">
         <el-select
@@ -41,29 +41,37 @@
       </el-form-item>
       <el-form-item>
         <el-button size="large" type="primary" @click="onSubmit">
-          添加
+          修改
         </el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script setup>
-import { ref, reactive, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { Plus } from '@element-plus/icons-vue'
 import editor from '@/components/editor/Editor'
 import upload from '@/util/upload'
+import axios from 'axios'
 const router = useRouter()
+const route = useRoute()
 const newsInfoRef = ref()
 const newsInfoForm = reactive({
   title: '',
   content: '',
-  categroy: 1, //1:最新动态，2:典型案例，3:通知公告
+  categroy: 1,
   cover: '',
   file: null,
-  isPublish: 0, //0:未发布，1:已发布
+  isPublish: 0,
 })
 
+onMounted(async () => {
+  const { data } = await axios.get(
+    `/backend/news-manage/news/${route.params.id}`
+  )
+  Object.assign(newsInfoForm, data.data)
+})
 const validateEditor = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请输入内容'))
@@ -96,6 +104,10 @@ const onSubmit = () => {
       router.push('/news-manage/newslist')
     }
   })
+}
+
+const handleBack = () => {
+  router.back()
 }
 </script>
 <style lang="scss" scoped>

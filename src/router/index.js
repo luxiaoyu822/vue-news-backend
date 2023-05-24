@@ -44,6 +44,7 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (!store.state.isGetterRouter) {
+        router.removeRoute('main')
         RouteConfig()
         next({
           path: to.fullPath,
@@ -56,9 +57,23 @@ router.beforeEach((to, from, next) => {
 })
 
 const RouteConfig = () => {
+  if (!router.hasRoute('main')) {
+    router.addRoute({
+      path: '/main',
+      name: 'main',
+      component: Main,
+    })
+  }
   RoutesConfig.forEach(item => {
-    router.addRoute('main', item)
+    checkPermission(item) && router.addRoute('main', item)
   })
   store.commit('changeGetterRouter', true)
+}
+
+const checkPermission = item => {
+  if (item.requireAdmin) {
+    return store.state.userInfo.role === 1
+  }
+  return true
 }
 export default router
