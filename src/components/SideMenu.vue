@@ -34,7 +34,7 @@
       <el-sub-menu index="/product-manage">
         <template #title>
           <el-icon><Reading /></el-icon>
-          <span>用户管理</span>
+          <span>产品管理</span>
         </template>
         <el-menu-item index="/product-manage/addproduct">添加产品</el-menu-item>
         <el-menu-item index="/product-manage/productlist"

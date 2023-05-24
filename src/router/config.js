@@ -41,5 +41,9 @@ const routes = [
     path: '/product-manage/productlist',
     component: () => import('@/views/product-manage/ProductList'),
   },
+  {
+    path: '/product-manage/editproduct/:id',
+    component: () => import('@/views/product-manage/ProductEdit'),
+  },
 ]
 export default routes
